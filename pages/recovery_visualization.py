@@ -193,7 +193,7 @@ if start_recovery:
                 title="Recovery Process Timeline"
             )
             fig.update_yaxes(autorange="reversed")
-            timeline_chart.plotly_chart(fig, use_container_width=True)
+            timeline_chart.plotly_chart(fig, use_container_width=True, key=f"timeline_{i}")
             
             # Animate system metrics recovery based on the stage
             transition_per_stage = int(transition_steps / recovery_steps)
@@ -237,14 +237,14 @@ if start_recovery:
                         fault_info['graph'], 
                         f"Network State: {fault_info['description']} (Detection Phase)"
                     )
-                    network_viz.plotly_chart(network_fig, use_container_width=True)
+                    network_viz.plotly_chart(network_fig, use_container_width=True, key=f"network_viz_{i}_{j}")
                 elif i < recovery_steps - 1:
                     # Intermediate recovery state - would be better with actual gradual recovery logic
                     network_fig = create_network_visualization(
                         fault_info['graph'], 
                         f"Network State: {fault_info['description']} (Recovery Phase {i+1}/{recovery_steps-1})"
                     )
-                    network_viz.plotly_chart(network_fig, use_container_width=True)
+                    network_viz.plotly_chart(network_fig, use_container_width=True, key=f"network_viz_{i}_{j}")
                 else:
                     # Final recovered state
                     G_normal = create_system_graph()
@@ -252,7 +252,7 @@ if start_recovery:
                         G_normal, 
                         "Network State: Fully Recovered"
                     )
-                    network_viz.plotly_chart(network_fig, use_container_width=True)
+                    network_viz.plotly_chart(network_fig, use_container_width=True, key=f"network_viz_{i}_{j}")
                 
                 # Add recovery details
                 with details_container:
@@ -331,7 +331,7 @@ if start_recovery:
         title="Recovery Process Timeline"
     )
     fig.update_yaxes(autorange="reversed")
-    timeline_chart.plotly_chart(fig, use_container_width=True)
+    timeline_chart.plotly_chart(fig, use_container_width=True, key="final_timeline")
 else:
     # Display instructions when not running a simulation
     network_viz.info("Select a fault scenario and click 'Start Recovery Simulation' to begin.")

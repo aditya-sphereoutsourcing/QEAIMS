@@ -58,16 +58,17 @@ with col1:
     # Get system health from latest data
     if system == "electricity":
         health_score = latest_data["electricity"]["health_score"]
-        is_anomaly = latest_data["electricity"]["anomaly"]
+        # Determine anomaly based on health score threshold
+        is_anomaly = health_score < 75
     elif system == "water":
         health_score = latest_data["water"]["health_score"]
-        is_anomaly = latest_data["water"]["anomaly"]
+        is_anomaly = health_score < 75
     elif system == "sewage":
         health_score = latest_data["sewage"]["health_score"]
-        is_anomaly = latest_data["sewage"]["anomaly"]
+        is_anomaly = health_score < 75
     elif system == "banking":
         health_score = latest_data["banking"]["health_score"]
-        is_anomaly = latest_data["banking"]["anomaly"]
+        is_anomaly = health_score < 75
     
     # Display health score with appropriate color
     if health_score >= 90:
