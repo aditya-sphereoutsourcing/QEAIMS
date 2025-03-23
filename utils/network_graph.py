@@ -228,8 +228,10 @@ def create_network_visualization(G, title="QEAIMS Integrated System Network"):
     fig = go.Figure(
         data=[edge_trace] + list(node_traces.values()),
         layout=go.Layout(
-            title=title,
-            titlefont=dict(size=16),
+            title=dict(
+                text=title,
+                font=dict(size=16)
+            ),
             showlegend=True,
             hovermode='closest',
             margin=dict(b=20, l=5, r=5, t=40),
