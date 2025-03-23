@@ -22,6 +22,8 @@ def create_system_graph():
     G.add_node("Water System", type="water", size=20, color="#2ca02c")
     G.add_node("Sewage System", type="sewage", size=20, color="#d62728")
     G.add_node("Banking Network", type="banking", size=20, color="#9467bd")
+    G.add_node("Healthcare Network", type="healthcare", size=20, color="#17becf")
+    G.add_node("Transportation Network", type="transportation", size=20, color="#8c564b")
     
     # Add sub-system nodes for Electricity
     G.add_node("Power Plant 1", type="electricity", size=15, color="#ff7f0e")
@@ -51,11 +53,27 @@ def create_system_graph():
     G.add_node("Fraud Detection", type="banking", size=15, color="#9467bd")
     G.add_node("Banking Control", type="banking", size=15, color="#9467bd")
     
+    # Add sub-system nodes for Healthcare
+    G.add_node("General Hospital", type="healthcare", size=15, color="#17becf")
+    G.add_node("Memorial Medical", type="healthcare", size=15, color="#17becf")
+    G.add_node("Emergency Response", type="healthcare", size=15, color="#17becf")
+    G.add_node("Patient Database", type="healthcare", size=15, color="#17becf")
+    G.add_node("Healthcare Control", type="healthcare", size=15, color="#17becf")
+    
+    # Add sub-system nodes for Transportation
+    G.add_node("Emergency Routes", type="transportation", size=15, color="#8c564b")
+    G.add_node("Traffic Control", type="transportation", size=15, color="#8c564b")
+    G.add_node("Transit Hub", type="transportation", size=15, color="#8c564b")
+    G.add_node("Road Network", type="transportation", size=15, color="#8c564b")
+    G.add_node("Transportation Control", type="transportation", size=15, color="#8c564b")
+    
     # Add edges from QEAIMS central to main systems
     G.add_edge("QEAIMS Central", "Electricity Grid", weight=5)
     G.add_edge("QEAIMS Central", "Water System", weight=5)
     G.add_edge("QEAIMS Central", "Sewage System", weight=5)
     G.add_edge("QEAIMS Central", "Banking Network", weight=5)
+    G.add_edge("QEAIMS Central", "Healthcare Network", weight=5)
+    G.add_edge("QEAIMS Central", "Transportation Network", weight=5)
     
     # Add edges for Electricity subsystems
     G.add_edge("Electricity Grid", "Power Plant 1", weight=3)
