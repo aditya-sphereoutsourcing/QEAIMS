@@ -406,7 +406,7 @@ def get_fault_simulation_data():
                 }
             }
         },
-        'sewage_system_overflow': {
+        'sewage_overflow': {
             'description': 'Simulates a sewage system overflow after heavy rainfall',
             'affected_systems': ['sewage', 'water'],
             'recovery_time': '8 hours',
@@ -434,6 +434,37 @@ def get_fault_simulation_data():
                     'response_time': 0.2,
                     'success_rate': 99.4,
                     'health_score': 97
+                }
+            }
+        },
+        'grid_instability': {
+            'description': 'Simulates electrical grid instability affecting multiple systems',
+            'affected_systems': ['electricity', 'water', 'sewage', 'banking'],
+            'recovery_time': '3 hours',
+            'data': {
+                'electricity': {
+                    'load': 380,  # Reduced load due to instability
+                    'voltage': 215,
+                    'frequency': 48.2,
+                    'health_score': 65
+                },
+                'water': {
+                    'flow': 950,  # Somewhat affected
+                    'pressure': 4.2,
+                    'quality': 90,
+                    'health_score': 80
+                },
+                'sewage': {
+                    'flow': 800,  # Affected by electrical instability
+                    'treatment_efficiency': 82,
+                    'contaminant_level': 8,
+                    'health_score': 70
+                },
+                'banking': {
+                    'transactions': 1800,  # Reduced due to electrical issues
+                    'response_time': 0.4,
+                    'success_rate': 92.0,
+                    'health_score': 75
                 }
             }
         }
