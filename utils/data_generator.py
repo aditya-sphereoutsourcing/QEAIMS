@@ -145,15 +145,15 @@ def get_historical_data(hours=24, interval_minutes=15):
         
         # Calculate health scores (inversely affected by anomalies)
         elec_health = 95 - (abs(elec_anomaly_value) / 10) + np.random.normal(0, 2)
-        water_health = 93 - (abs(water_anomaly_value) / 20) + np.random.normal(0, 2)
-        sewage_health = 90 - (abs(sewage_anomaly_value) / 15) + np.random.normal(0, 2)
-        banking_health = 97 - (abs(banking_anomaly_value) / 50) + np.random.normal(0, 2)
+        water_health_value = 93 - (abs(water_anomaly_value) / 20) + np.random.normal(0, 2)
+        sewage_health_value = 90 - (abs(sewage_anomaly_value) / 15) + np.random.normal(0, 2)
+        banking_health_value = 97 - (abs(banking_anomaly_value) / 50) + np.random.normal(0, 2)
         
         # Ensure health scores are between 0 and 100
         elec_health = max(0, min(elec_health, 100))
-        water_health = max(0, min(water_health, 100))
-        sewage_health = max(0, min(sewage_health, 100))
-        banking_health = max(0, min(banking_health, 100))
+        water_health_value = max(0, min(water_health_value, 100))
+        sewage_health_value = max(0, min(sewage_health_value, 100))
+        banking_health_value = max(0, min(banking_health_value, 100))
         
         # Append values and anomaly flags
         electricity_load.append(elec_value)
@@ -167,9 +167,9 @@ def get_historical_data(hours=24, interval_minutes=15):
         
         # Append health scores
         electricity_health.append(elec_health)
-        water_health.append(water_health)
-        sewage_health.append(sewage_health)
-        banking_health.append(banking_health)
+        water_health.append(water_health_value)
+        sewage_health.append(sewage_health_value)
+        banking_health.append(banking_health_value)
     
     # Create historical data structure
     historical_data = {

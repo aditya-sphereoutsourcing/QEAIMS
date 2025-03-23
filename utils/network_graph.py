@@ -286,8 +286,7 @@ def simulate_fault(fault_type):
         'grid_instability': {
             'description': 'Electrical Grid Instability',
             'affected_nodes': ['Electricity Grid', 'Substation 1', 'Substation 2'],
-            'secondary_nodes': ['Data Center
-1', 'Water Treatment 1', 'Sewage Treatment 1'],
+            'secondary_nodes': ['Data Center 1', 'Water Treatment 1', 'Sewage Treatment 1'],
             'severity': 'High',
             'systems': ['electricity', 'water', 'sewage', 'banking']
         }
