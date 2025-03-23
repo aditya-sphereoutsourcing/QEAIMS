@@ -199,9 +199,14 @@ def create_network_visualization(G, title="QEAIMS Integrated System Network"):
         node_traces[node_type].text = node_traces[node_type].text + (node_info,)
         
         # If the node has a specific color, add it to the marker.color list
-        if 'color' not in node_traces[node_type].marker:
+        if not hasattr(node_traces[node_type].marker, 'color') or node_traces[node_type].marker.color is None:
             node_traces[node_type].marker.color = []
-        node_traces[node_type].marker.color = node_traces[node_type].marker.color + (color,)
+        
+        # Handle the case where color might be None or already a list
+        if isinstance(node_traces[node_type].marker.color, list):
+            node_traces[node_type].marker.color.append(color)
+        else:
+            node_traces[node_type].marker.color = [color]
     
     # Create edge traces
     edge_trace = go.Scatter(
