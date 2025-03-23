@@ -110,6 +110,28 @@ def create_system_graph():
     G.add_edge("Data Center 1", "Electricity Control", weight=1)  # Data centers need electricity
     G.add_edge("Transaction Processing", "Data Center 1", weight=1)  # Transactions run in data centers
     
+    # Add edges for Healthcare subsystems
+    G.add_edge("Healthcare Network", "General Hospital", weight=3)
+    G.add_edge("Healthcare Network", "Memorial Medical", weight=3)
+    G.add_edge("Healthcare Network", "Emergency Response", weight=3)
+    G.add_edge("Healthcare Network", "Patient Database", weight=3)
+    G.add_edge("Healthcare Network", "Healthcare Control", weight=3)
+    
+    # Add edges for Transportation subsystems
+    G.add_edge("Transportation Network", "Emergency Routes", weight=3)
+    G.add_edge("Transportation Network", "Traffic Control", weight=3)
+    G.add_edge("Transportation Network", "Transit Hub", weight=3)
+    G.add_edge("Transportation Network", "Road Network", weight=3)
+    G.add_edge("Transportation Network", "Transportation Control", weight=3)
+    
+    # Add healthcare and transportation interdependencies
+    G.add_edge("General Hospital", "Electricity Control", weight=1)  # Hospitals need electricity
+    G.add_edge("Memorial Medical", "Water Control", weight=1)  # Hospitals need water
+    G.add_edge("Emergency Response", "Transportation Control", weight=1)  # Emergency response needs transportation
+    G.add_edge("Patient Database", "Data Center 1", weight=1)  # Patient records in data centers
+    G.add_edge("Emergency Routes", "Road Network", weight=1)  # Emergency routes use road network
+    G.add_edge("Traffic Control", "Electricity Control", weight=1)  # Traffic systems need electricity
+    
     return G
 
 def update_graph_status(G, anomaly_data):
@@ -126,45 +148,19 @@ def update_graph_status(G, anomaly_data):
     # Create a copy of the graph to avoid modifying the original
     G_updated = G.copy()
     
-    # Update status for electricity nodes
-    electricity_status = anomaly_data.get('electricity', 'Normal')
-    for node in G_updated.nodes:
-        if G_updated.nodes[node]['type'] == 'electricity':
-            if electricity_status == "Anomaly Detected":
-                G_updated.nodes[node]['color'] = "#ff0000"  # Red for anomaly
-                G_updated.nodes[node]['status'] = "Anomaly"
-            else:
-                G_updated.nodes[node]['status'] = "Normal"
+    # Define all system types to update
+    system_types = ['electricity', 'water', 'sewage', 'banking', 'healthcare', 'transportation']
     
-    # Update status for water nodes
-    water_status = anomaly_data.get('water', 'Normal')
-    for node in G_updated.nodes:
-        if G_updated.nodes[node]['type'] == 'water':
-            if water_status == "Anomaly Detected":
-                G_updated.nodes[node]['color'] = "#ff0000"  # Red for anomaly
-                G_updated.nodes[node]['status'] = "Anomaly"
-            else:
-                G_updated.nodes[node]['status'] = "Normal"
-    
-    # Update status for sewage nodes
-    sewage_status = anomaly_data.get('sewage', 'Normal')
-    for node in G_updated.nodes:
-        if G_updated.nodes[node]['type'] == 'sewage':
-            if sewage_status == "Anomaly Detected":
-                G_updated.nodes[node]['color'] = "#ff0000"  # Red for anomaly
-                G_updated.nodes[node]['status'] = "Anomaly"
-            else:
-                G_updated.nodes[node]['status'] = "Normal"
-    
-    # Update status for banking nodes
-    banking_status = anomaly_data.get('banking', 'Normal')
-    for node in G_updated.nodes:
-        if G_updated.nodes[node]['type'] == 'banking':
-            if banking_status == "Anomaly Detected":
-                G_updated.nodes[node]['color'] = "#ff0000"  # Red for anomaly
-                G_updated.nodes[node]['status'] = "Anomaly"
-            else:
-                G_updated.nodes[node]['status'] = "Normal"
+    # Update status for all system nodes
+    for system_type in system_types:
+        system_status = anomaly_data.get(system_type, 'Normal')
+        for node in G_updated.nodes:
+            if G_updated.nodes[node]['type'] == system_type:
+                if system_status == "Anomaly Detected":
+                    G_updated.nodes[node]['color'] = "#ff0000"  # Red for anomaly
+                    G_updated.nodes[node]['status'] = "Anomaly"
+                else:
+                    G_updated.nodes[node]['status'] = "Normal"
     
     return G_updated
 
@@ -336,12 +332,16 @@ def simulate_fault(fault_type):
             G_fault.nodes[node]['color'] = "#ffa500"  # Orange for secondary affected
             G_fault.nodes[node]['status'] = "At Risk"
     
-    # Create anomaly status dict for systems
+    # This block will be replaced by the complete anomaly status dict below
+    
+    # Create complete anomaly status dict for all systems
     anomaly_status = {
         'electricity': 'Normal',
         'water': 'Normal',
         'sewage': 'Normal',
-        'banking': 'Normal'
+        'banking': 'Normal',
+        'healthcare': 'Normal',
+        'transportation': 'Normal'
     }
     
     # Update anomaly status for affected systems
